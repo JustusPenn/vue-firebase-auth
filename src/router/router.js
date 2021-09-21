@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { getAuth } from 'firebase/auth'
 
 import Login from '../components/Login.vue'
 import Signup from '../components/Signup.vue'
@@ -12,6 +13,10 @@ const router = createRouter({
         {
             path: '/',
             name: 'login',
+            component: Login
+        },
+        {
+            path: '/login',
             component: Login
         },
         {
@@ -31,5 +36,29 @@ const router = createRouter({
         }
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ['/login', '/register', 'forgot-password'];
+    const authRequired = !publicPages.includes(to.path);
+    // const loggedIn = false
+    function checkAuth() {
+        const auth = getAuth();
+        if (auth.currentUser) {
+            console.log(auth.currentUser);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    const loggedIn = checkAuth()
+    // console.log(checkAuth());
+    // console.log(loggedIn);
+    if (authRequired && loggedIn == false) {
+      next('/login');
+    } else {
+      next();
+    }
+});
 
 export default router
