@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { getAuth, signOut } from 'firebase/auth'
 
 export default {
   data() {
@@ -36,17 +36,18 @@ export default {
       auth: getAuth()
     };
   },
-  watch: {
-    user(){
-      return this.auth.currentUser;
+  created() {
+    console.log(this.user);
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user.data
     }
   },
   methods: {
     logOut() {
       signOut(this.auth).then(() => {
-        onAuthStateChanged(this.auth, () => {
           this.$router.push('/login')
-        })
       }).catch((error) => {
         alert(error.message)
       })

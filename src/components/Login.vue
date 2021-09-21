@@ -39,6 +39,9 @@
                 success: false
             }
         },
+        mounted() {
+            console.log(getAuth().currentUser)
+        },
         methods: {
             userLogin() {
                 const auth = getAuth();

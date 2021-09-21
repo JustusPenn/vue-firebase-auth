@@ -27,19 +27,22 @@ import { getAuth } from 'firebase/auth'
 export default {
 	data() {
 			return { 
-			user: null,
 		};
 	},
 	computed: {
-		loggedIn(){
+		user(){
+			return this.$store.state.user.data;
+		},
+		loggedIn() {
 			return this.$store.state.user.loggedIn;
 		}
 	},
 	created() {
+		console.log(this.user, this.loggedIn);
 		const auth = getAuth()
-		
+
 		if(!this.loggedIn) {
-			this.$router.push('/profile')
+			this.$router.push('/login')
 		} else {
 			this.user = auth.currentUser;
 		}
