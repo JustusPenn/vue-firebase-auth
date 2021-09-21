@@ -1,5 +1,6 @@
 # Vue Firebase Authentication
-
+This application is based on Vue3, Vuex4, Vue-router4, Firebase9.
+The user interface is based on Bootstrap 5.
 ## Project setup
 ```
 yarn install
@@ -42,6 +43,3 @@ yarn build
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
